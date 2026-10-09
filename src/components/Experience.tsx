@@ -1,4 +1,4 @@
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronRight } from "lucide-react";
 import { useState, useRef } from "react";
 
 function Experience() {
@@ -13,19 +13,6 @@ function Experience() {
     "/ST5.jpg",
     "/ST6.jpg",
   ];
-
-  const slide = (direction: number) => {
-    if (!sliderRef.current) return;
-
-    const card = sliderRef.current.querySelector(".experience-card");
-
-    if (!card) return;
-
-    sliderRef.current.scrollBy({
-      left: direction * (card.getBoundingClientRect().width + 24),
-      behavior: "smooth",
-    });
-  };
 
   return (
     <section id="experience" className="section experience">
@@ -44,8 +31,6 @@ function Experience() {
       </div>
 
       <div className="experience-carousel">
-        
-
         <div className="experience-track" ref={sliderRef}>
           <article
             className="experience-card"
@@ -193,4 +178,3 @@ function Experience() {
 }
 
 export default Experience;
-
