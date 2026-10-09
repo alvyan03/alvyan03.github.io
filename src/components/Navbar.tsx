@@ -1,8 +1,23 @@
-import { useState } from "react";
-import { Menu, X, Bot, Send } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Menu, X, Bot, Send, Sun, Moon } from "lucide-react";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+    const [theme, setTheme] = useState<"light" | "dark">(() => {
+      return localStorage.getItem("theme") === "light" ? "light" : "dark";
+    });
+
+    useEffect(() => {
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+    }, [theme]);
+
+    const toggleTheme = () => {
+      const nextTheme = theme === "dark" ? "light" : "dark";
+
+      setTheme(nextTheme);
+      document.documentElement.setAttribute("data-theme", nextTheme);
+    };
   const [aiOpen, setAiOpen] = useState(false);
   const [input, setInput] = useState("");
 
@@ -486,10 +501,26 @@ function Navbar() {
           </button>
         </div>
 
-        {/* LET'S TALK */}
-        <a href="#contact" className="nav-talk">
-          Let's Talk
-        </a>
+        {/* NAVBAR ACTIONS */}
+        <div className="nav-actions">
+          {/* THEME TOGGLE */}
+          <button
+            type="button"
+            className={`theme-toggle ${theme === "dark" ? "is-dark" : "is-light"}`}
+            onClick={toggleTheme}
+            aria-label="Toggle color theme"
+            aria-pressed={theme === "dark"}
+          >
+            <span className="theme-toggle-thumb">
+              {theme === "dark" ? <Moon size={16} /> : <Sun size={16} />}
+            </span>
+          </button>
+
+          {/* LET'S TALK */}
+          <a href="#contact" className="nav-talk">
+            Let's Talk
+          </a>
+        </div>
 
         {/* MOBILE MENU */}
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)}>

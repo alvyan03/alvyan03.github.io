@@ -1,7 +1,16 @@
-import { ArrowUpRight, Code2, Server } from "lucide-react";
+import {
+  ArrowUpRight,
+  Code2,
+  Server,
+  Download,
+  ChevronDown,
+} from "lucide-react";
+import { useState } from "react";
 import profilePhoto from "../assets/profile.png";
 
 function Hero() {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   return (
     <section id="home" className="hero section">
       <div className="hero-content">
@@ -28,11 +37,66 @@ function Hero() {
           a strong interest in building practical and reliable IT solutions.
         </p>
 
-        <div className="hero-buttons hero-reveal">
+        <div
+          className="hero-buttons hero-reveal"
+          style={{
+            display: "flex",
+            gap: "12px",
+            flexWrap: "wrap",
+            alignItems: "center",
+          }}
+        >
           <a href="#projects" className="button primary">
             View My Work
             <ArrowUpRight size={18} />
           </a>
+
+          {/* Tombol Dropdown Download CV */}
+          <div className="cv-dropdown-container">
+            <button
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="button secondary"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                cursor: "pointer",
+              }}
+            >
+              <Download size={18} />
+              Download CV
+              <ChevronDown
+                size={16}
+                style={{
+                  transform: isDropdownOpen ? "rotate(180deg)" : "rotate(0deg)",
+                  transition: "transform 0.2s",
+                }}
+              />
+            </button>
+
+            {isDropdownOpen && (
+              <div className="cv-dropdown-menu">
+                <a
+                  href="/CV_Alfian Ramdhan - D.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsDropdownOpen(false)}
+                  className="cv-dropdown-item"
+                >
+                  💻  CV Developer
+                </a>
+                <a
+                  href="/CV_Alfian Ramdhan - Ne.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsDropdownOpen(false)}
+                  className="cv-dropdown-item"
+                >
+                  🌐  CV Network & Infra
+                </a>
+              </div>
+            )}
+          </div>
 
           <a href="#contact" className="button secondary">
             Contact Me
