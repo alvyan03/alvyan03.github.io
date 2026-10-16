@@ -2998,5 +2998,120 @@ header {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* ===== 3D LAYER ===== */
 
+.hero-visual {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
 
+.photo-frame {
+  animation: none !important;
+}
+
+.visual-card,
+.tech-badge,
+.visual-glow {
+  will-change: transform;
+  transition: transform 0.2s ease-out;
+}
+
+.tilt {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition:
+    transform 0.15s ease-out,
+    opacity 0.7s ease,
+    border-color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease !important;
+}
+
+.tilt.is-tilting {
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45),
+    0 0 40px rgba(139, 124, 246, 0.12);
+}
+
+.tilt.is-leaving {
+  transition:
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.7s ease,
+    border-color 0.3s ease !important;
+}
+
+.tilt .skill-icon,
+.tilt h3,
+.tilt .project-index {
+  transform: translateZ(28px);
+}
+
+/* ===== 3D V2: BACKGROUND, GLARE, SCROLL ===== */
+
+/* canvas Three.js di belakang konten */
+#bg3d {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+.portfolio {
+  background: transparent !important;
+}
+
+/* kilau yang ngikutin mouse */
+.tilt {
+  position: relative;
+}
+
+.tilt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 6;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    circle at var(--gx, 50%) var(--gy, 50%),
+    rgba(255, 255, 255, 0.16),
+    transparent 55%
+  );
+}
+
+.tilt.is-tilting::after {
+  opacity: 1;
+}
+
+/* scroll 3D: elemen "bangun" dari bawah dengan kedalaman */
+.reveal {
+  opacity: 0;
+  transform: perspective(1000px) translateY(70px) rotateX(18deg) translateZ(-80px);
+  transform-origin: 50% 100%;
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal.show {
+  opacity: 1;
+  transform: perspective(1000px) translateY(0) rotateX(0) translateZ(0);
+}
+
+/* biar card yang punya tilt tetap kena animasi scroll yang pelan */
+.tilt.reveal:not(.is-tilting):not(.is-leaving) {
+  transition:
+    transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.9s ease,
+    border-color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease !important;
+}

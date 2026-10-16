@@ -1,0 +1,132 @@
+/* ===== 3D V3: INTRO, CURSOR, TEKS HERO ===== */
+
+/* ---------- intro loading ---------- */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: #090b10;
+  transition: transform 0.9s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+.intro.done {
+  transform: translateY(-100%);
+}
+
+.intro-count {
+  color: #f2f4f8;
+  font-size: clamp(56px, 12vw, 120px);
+  font-weight: 750;
+  letter-spacing: -4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.intro-count span {
+  color: #8b7cf6;
+}
+
+.intro-bar {
+  width: min(260px, 60vw);
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.intro-bar i {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: #8b7cf6;
+}
+
+.intro-label {
+  color: #747d8e;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
+/* ---------- teks hero per huruf ---------- */
+.hero-title.split {
+  perspective: 600px;
+}
+
+.hero-title .word,
+.hero-title .char {
+  color: inherit; /* biar kata aksen ungu tetap ungu, sisanya putih */
+}
+
+.hero-title .word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.hero-title.split .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(70%) rotateX(-80deg);
+  transform-origin: 50% 100%;
+}
+
+.hero-title.split.go .char {
+  animation: charIn 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: calc(var(--i) * 40ms);
+}
+
+@keyframes charIn {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- cursor custom ---------- */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: #8b7cf6;
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 1px solid rgba(139, 124, 246, 0.6);
+  transition:
+    width 0.25s ease,
+    height 0.25s ease,
+    margin 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.cursor-ring.hover {
+  width: 64px;
+  height: 64px;
+  margin: -32px 0 0 -32px;
+  border-color: #8b7cf6;
+  background: rgba(139, 124, 246, 0.12);
+}
