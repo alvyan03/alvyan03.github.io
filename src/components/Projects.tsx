@@ -86,6 +86,18 @@ function Projects() {
       images: [],
       link: "",
     },
+    {
+      number: "06",
+      title: "NEON//BOSS — Cyberpunk Boss Arena",
+      category: "2D Action Game",
+      description:
+        "A cyberpunk-inspired 2D boss battle game featuring real-time combat, enemy attacks, and interactive gameplay mechanics.",
+      longDescription:
+        "Developed an interactive 2D boss battle game using Phaser and TypeScript, featuring player movement, shooting mechanics, boss attack patterns, health bars, and ultimate abilities.",
+      tech: ["Phaser", "TypeScript", "Vite"],
+      images: ["Game.jpeg"],
+      link: "https://gameneonboss.vercel.app",  
+    },
   ];
 
   const slide = (direction: number) => {
@@ -242,6 +254,19 @@ function Projects() {
             )}
 
             <div className="modal-body">
+              {selectedProject.link && (
+                <a
+                  href={selectedProject.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="play-game-button"
+                >
+                  <span>▶</span>
+                  PLAY GAME
+                  <span>↗</span>
+                </a>
+              )}
+
               <h4>Overview</h4>
 
               <p>{selectedProject.longDescription}</p>
